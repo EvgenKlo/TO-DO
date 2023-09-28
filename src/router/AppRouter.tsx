@@ -15,7 +15,7 @@ export const AppRouter = () => {
           element={<Main />}
         />
         <Route
-          path="project"
+          path=":id"
           element={<Project />}
         />
       </Route>
