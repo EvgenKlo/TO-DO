@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
 import TaskItem from './TaskItem';
 import { useDrop } from 'react-dnd';
-import { Actions, Project, Task } from '../../types/types';
+import { Actions, Project, Status, Task } from '../../types/types';
 import { useDispatch } from 'react-redux';
 
-const ProjectColumn: React.FC<{ project: Project; columnName: string }> = ({
+const ProjectColumn: React.FC<{ project: Project; columnName: Status }> = ({
   project,
   columnName,
 }) => {
@@ -17,7 +17,8 @@ const ProjectColumn: React.FC<{ project: Project; columnName: string }> = ({
         type: Actions.ChangeStatus,
         payload: {
           projectId: project.id,
-          task: { ...item, status: columnName.toLocaleLowerCase() },
+          taskNumber: item.number,
+          taskStatus: columnName,
         },
       });
     },
@@ -38,11 +39,11 @@ const ProjectColumn: React.FC<{ project: Project; columnName: string }> = ({
       }}
       ref={drop}
       role={'Dustbin'}
-      style={{ backgroundColor: isOver ? 'red' : 'white' }}
+      style={{ backgroundColor: isOver ? 'gray' : 'white' }}
     >
       {columnName}
       {project.tasks
-        ?.filter((item) => item.status === columnName.toLocaleLowerCase())
+        ?.filter((item) => item.status === columnName)
         .map((item) => (
           <TaskItem
             item={item}

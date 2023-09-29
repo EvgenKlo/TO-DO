@@ -4,8 +4,9 @@ import { Button, Container, Grid, Typography } from '@mui/material';
 import AddTaskModal from '../../components/project/AddTaskModal';
 import { useState } from 'react';
 import ProjectColumn from '../../components/project/ProjectColumn';
+import { Status } from '../../types/types';
 
-const columnNames = ['Queue', 'Development', 'Done'];
+const columnNames = ['Queue', 'Development', 'Done'] as Status[];
 
 const Project = () => {
   const { id } = useParams();

@@ -13,7 +13,7 @@ const style = {
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
-  borderRadius: 10,
+  borderRadius: 5,
   boxSizing: 'border-box',
 };
 

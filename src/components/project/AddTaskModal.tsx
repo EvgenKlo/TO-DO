@@ -1,8 +1,7 @@
 import { Box, Button, Modal, Stack, TextField, Typography } from '@mui/material';
-import { Actions, Task } from '../../types/types';
+import { Actions, Priority, Status, Task } from '../../types/types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// import { useAppSelector } from '../../hooks/useAppSelector';
 
 const style = {
   position: 'absolute',
@@ -13,7 +12,7 @@ const style = {
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
-  borderRadius: 10,
+  borderRadius: 5,
   boxSizing: 'border-box',
 };
 
@@ -42,9 +41,10 @@ const AddTaskModal: React.FC<{
         task: {
           ...task,
           dateCreate: Date.now(),
-          status: 'queue',
+          status: Status.queue,
           number: taskId,
-          priority: 'green',
+          priority: Priority.low,
+          projectId: projectId,
         },
       },
     });

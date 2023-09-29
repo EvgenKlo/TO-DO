@@ -21,6 +21,7 @@ export type NewTaskAction = {
 export enum Actions {
   AddProject = 'ADD_PROJECT',
   AddTask = 'ADD_TASK',
+  EditTask = 'EDIT_TASK',
   ChangeStatus = 'CHANGE_STATUS',
 }
 
@@ -31,8 +32,21 @@ export type Task = {
   dateCreate: number;
   timeInWork: string;
   expirationDate: string;
-  priority: 'green' | 'yellow' | 'red';
+  priority: Priority;
   files: string;
-  status: 'queue' | 'development' | 'done';
+  status: Status;
   subtasks?: string;
+  projectId: number;
 };
+
+export enum Status {
+  queue = 'Queue',
+  development = 'Development',
+  done = 'Done',
+}
+
+export enum Priority {
+  low = 'low',
+  medium = 'medium',
+  high = 'high',
+}
