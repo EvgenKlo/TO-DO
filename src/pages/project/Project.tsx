@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { Button, Grid } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import AddTaskModal from '../../components/project/AddTaskModal';
 import { useState } from 'react';
-import TaskItem from '../../components/project/TaskItem';
+import ProjectColumn from '../../components/project/ProjectColumn';
+
+const columnNames = ['Queue', 'Development', 'Done'];
 
 const Project = () => {
   const { id } = useParams();
@@ -17,7 +19,8 @@ const Project = () => {
   return !project ? (
     <div>Project not found</div>
   ) : (
-    <>
+    <Container>
+      <Typography variant="h4">{project.name}</Typography>
       <Button
         onClick={() => {
           setModalOpen(true);
@@ -27,41 +30,24 @@ const Project = () => {
       </Button>
       <Grid
         container
-        width={'100%'}
+        gap={1}
       >
-        <Grid
-          item
-          sx={{ borderRadius: 3, width: '33%', textAlign: 'center' }}
-        >
-          Queue
-          {project.tasks?.map((item, index) => (
-            <TaskItem
-              item={item}
-              key={index}
-            ></TaskItem>
-          ))}
-        </Grid>
-        <Grid
-          item
-          sx={{ borderRadius: 3, width: '33%', textAlign: 'center' }}
-        >
-          Development
-        </Grid>
-        <Grid
-          item
-          sx={{ borderRadius: 3, width: '33%', textAlign: 'center' }}
-        >
-          Done
-        </Grid>
+        {columnNames.map((item) => (
+          <ProjectColumn
+            project={project}
+            columnName={item}
+            key={item}
+          />
+        ))}
       </Grid>
-      <div>{project.name}</div>
+
       <AddTaskModal
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
-        taskId={project.tasks ? project.tasks[project.tasks.length - 1].number + 1 : 1}
+        taskId={project.tasks?.length ? project.tasks[project.tasks.length - 1].number + 1 : 1}
         projectId={project.id}
       />
-    </>
+    </Container>
   );
 };
 

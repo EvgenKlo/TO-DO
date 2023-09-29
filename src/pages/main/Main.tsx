@@ -1,7 +1,7 @@
 import Stack from '@mui/material/Stack';
 
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { Button } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import AddProjectModal from '../../components/main/AddProjectModal';
 import { useState } from 'react';
 import ProjectCard from '../../components/main/ProjectCard';
@@ -11,7 +11,7 @@ const Main = () => {
   const state = useAppSelector((state) => state.projects);
 
   return (
-    <>
+    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
       <Stack spacing={2}>
         <Button
           sx={{ width: 350 }}
@@ -31,7 +31,7 @@ const Main = () => {
         setModalOpen={setModalOpen}
         projectId={state[state.length - 1].id + 1}
       />
-    </>
+    </Container>
   );
 };
 

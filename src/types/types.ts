@@ -21,16 +21,17 @@ export type NewTaskAction = {
 export enum Actions {
   AddProject = 'ADD_PROJECT',
   AddTask = 'ADD_TASK',
+  ChangeStatus = 'CHANGE_STATUS',
 }
 
 export type Task = {
   number: number;
   name: string;
   description: string;
-  dateCreate: string;
+  dateCreate: number;
   timeInWork: string;
   expirationDate: string;
-  priority: string;
+  priority: 'green' | 'yellow' | 'red';
   files: string;
   status: 'queue' | 'development' | 'done';
   subtasks?: string;

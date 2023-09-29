@@ -26,8 +26,6 @@ const AddTaskModal: React.FC<{
 
   projectId: number;
 }> = ({ modalOpen, setModalOpen, taskId, projectId }) => {
-  /* const state = useAppSelector((state) => state.projects); */
-
   const handleClose = () => setModalOpen(false);
 
   const dispatch = useDispatch();
@@ -36,12 +34,19 @@ const AddTaskModal: React.FC<{
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    /* const newProjects = [...state, { ...task, id: taskId }];
-    localStorage.setItem('01MyToDoList23', JSON.stringify(newProjects)); */
 
     dispatch({
       type: Actions.AddTask,
-      payload: { project: projectId, task: { ...task, id: taskId } },
+      payload: {
+        project: projectId,
+        task: {
+          ...task,
+          dateCreate: Date.now(),
+          status: 'queue',
+          number: taskId,
+          priority: 'green',
+        },
+      },
     });
 
     handleClose();
