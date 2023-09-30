@@ -1,6 +1,7 @@
 {
   "name": "to-do",
   "version": "0.1.0",
+  "homepage": "https://EvgenKlo.github.io/TO-DO",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -35,7 +36,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +64,8 @@
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
     "eslint": "^8.50.0",
+    "gh-pages": "^6.0.0",
+    "netlify-cli": "^16.4.2",
     "prettier": "^3.0.3"
   }
 }

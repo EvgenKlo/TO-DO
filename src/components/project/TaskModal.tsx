@@ -11,7 +11,7 @@ import {
 import { Actions, Priority, Status, Task } from '../../types/types';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
-import CloseIcon from '@mui/icons-material/Close';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { msToTime } from '../../helpers/time';
@@ -76,7 +76,7 @@ const TaskModal: React.FC<{
               <DoneIcon />
             </Button>
             <Button onClick={() => setEdit(false)}>
-              <CloseIcon />
+              <HighlightOffIcon />
             </Button>
           </Box>
         ) : (
