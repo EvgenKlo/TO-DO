@@ -76,7 +76,6 @@ const TaskModal: React.FC<{
             type: Actions.EditTask,
             payload: { projectId: task.projectId, task: taskUpdate },
           });
-          setModalOpen(false);
           setEdit(false);
         }}
       >
@@ -182,6 +181,7 @@ const TaskModal: React.FC<{
             <TextField
               fullWidth
               multiline
+              rows={5}
               variant="standard"
               type="input"
               value={taskUpdate.description}
@@ -200,7 +200,7 @@ const TaskModal: React.FC<{
           component="h2"
           sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
         >
-          {`Date of creation: ${new Date(task.dateCreate).toString()}`}
+          {`Date of creation: ${new Date(task.dateCreate).toLocaleString()}`}
         </Typography>
         <Typography
           id="modal-modal-title"

@@ -146,6 +146,7 @@ const EditProjectModal: React.FC<{
             <TextField
               fullWidth
               multiline
+              rows={2}
               variant="standard"
               type="input"
               value={projectUpdate.description}
