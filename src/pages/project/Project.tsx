@@ -12,6 +12,8 @@ import EditProjectModal from '../../components/project/EditProjectModal';
 
 const columnNames = ['Queue', 'Development', 'Done'] as Status[];
 
+const buttonStyle = { margin: '0px 0px 16px 16px' };
+
 const Project = () => {
   const { id } = useParams();
 
@@ -33,7 +35,7 @@ const Project = () => {
           <Typography variant="body1">{project.description}</Typography>
           <Link to={'/'}>
             <Button
-              sx={{ margin: '0px 0px 16px 16px' }}
+              sx={buttonStyle}
               variant="contained"
             >
               <KeyboardBackspaceIcon sx={{ marginRight: 1 }} />
@@ -44,13 +46,13 @@ const Project = () => {
             onClick={() => {
               setModalOpen(true);
             }}
-            sx={{ margin: '0px 0px 16px 16px' }}
+            sx={buttonStyle}
             variant="contained"
           >
             <AddCircleOutlineIcon sx={{ marginRight: 1 }} /> Create task
           </Button>
           <Button
-            sx={{ margin: '0px 0px 16px 16px' }}
+            sx={buttonStyle}
             variant="contained"
             onClick={() => setEditProjectModalOpen(true)}
           >
