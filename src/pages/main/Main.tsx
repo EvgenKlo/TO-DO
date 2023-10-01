@@ -1,22 +1,30 @@
-import Stack from '@mui/material/Stack';
-
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { Button, Container } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 import AddProjectModal from '../../components/main/AddProjectModal';
 import { useState } from 'react';
 import ProjectCard from '../../components/main/ProjectCard';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const Main = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const state = useAppSelector((state) => state.projects);
 
   return (
-    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Stack spacing={2}>
+    <Container>
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+          flexDirection: { xs: 'column', sm: 'row' },
+        }}
+      >
         <Button
-          sx={{ width: 350 }}
+          sx={{ width: 250, minHeight: 80, margin: { xs: '10px auto', sm: 2 }, borderRadius: 2 }}
           onClick={() => setModalOpen(true)}
+          variant="contained"
         >
+          <AddCircleOutlineIcon />
           Add new project
         </Button>
         {state.map((item) => (
@@ -25,7 +33,7 @@ const Main = () => {
             item={item}
           />
         ))}
-      </Stack>
+      </Box>
       <AddProjectModal
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}

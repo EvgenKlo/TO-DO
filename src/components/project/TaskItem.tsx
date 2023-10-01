@@ -23,12 +23,13 @@ const TaskItem: React.FC<{ item: Task }> = ({ item }) => {
       <Card
         sx={{
           margin: 1,
-          backgroundColor:
+          border: `2px solid ${
             item.priority === Priority.low
               ? 'green'
               : item.priority === Priority.medium
               ? 'yellow'
-              : 'red',
+              : 'red'
+          }`,
         }}
         ref={dragPreview}
         style={{ opacity: isDragging ? 0.5 : 1 }}
@@ -42,12 +43,14 @@ const TaskItem: React.FC<{ item: Task }> = ({ item }) => {
               gutterBottom
               variant="h5"
               component="div"
+              sx={{ overflow: 'hidden' }}
             >
               {item.name}
             </Typography>
             <Typography
               variant="body2"
               color="text.secondary"
+              sx={{ overflow: 'hidden' }}
             >
               {item.description}
             </Typography>
