@@ -24,8 +24,7 @@ const Main = () => {
           onClick={() => setModalOpen(true)}
           variant="contained"
         >
-          <AddCircleOutlineIcon />
-          Add new project
+          <AddCircleOutlineIcon sx={{ marginRight: 1 }} /> Add new project
         </Button>
         {state.map((item) => (
           <ProjectCard

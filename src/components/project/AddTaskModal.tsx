@@ -89,7 +89,12 @@ const AddTaskModal: React.FC<{
                 setTask({ ...task, description: event.target.value });
               }}
             />
-            <Button type="submit">Add task</Button>
+            <Button
+              type="submit"
+              variant="contained"
+            >
+              Add task
+            </Button>
           </Stack>
         </Box>
       </Box>

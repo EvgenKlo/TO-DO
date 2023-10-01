@@ -15,6 +15,9 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { msToTime } from '../../helpers/time';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteTaskModal from './DeleteTaskModal';
 
 const style = {
   position: 'absolute',
@@ -36,13 +39,26 @@ const TaskModal: React.FC<{
 
   task: Task;
 }> = ({ modalOpen, setModalOpen, task }) => {
-  const handleClose = () => setModalOpen(false);
+  const handleClose = () => {
+    setEdit(false);
+    setModalOpen(false);
+  };
 
   const [edit, setEdit] = useState(false);
 
   const dispatch = useDispatch();
 
   const [taskUpdate, setTaskUpdate] = useState(task);
+
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const deleteTask = () => {
+    dispatch({
+      type: Actions.DeleteTask,
+      payload: { projectId: task.projectId, taskNumber: task.number },
+    });
+    setEdit(false);
+  };
 
   return (
     <Modal
@@ -61,63 +77,96 @@ const TaskModal: React.FC<{
             payload: { projectId: task.projectId, task: taskUpdate },
           });
           setModalOpen(false);
+          setEdit(false);
         }}
       >
-        {edit ? (
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 10,
-              right: 10,
-              borderRadius: '100%',
-            }}
-          >
-            <Button type="submit">
-              <DoneIcon />
-            </Button>
-            <Button onClick={() => setEdit(false)}>
-              <ClearIcon />
-            </Button>
-          </Box>
-        ) : (
-          <Button
-            sx={{
-              position: 'absolute',
-              top: 10,
-              right: 10,
-              borderRadius: '100%',
-              width: 50,
-              height: 50,
-            }}
-            onClick={() => setEdit(true)}
-          >
-            <EditIcon />
-          </Button>
-        )}
-
-        <Typography
-          id="modal-modal-title"
-          variant="h5"
-          component="h2"
-          sx={{ marginBottom: 1 }}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '-32px -32px 10px -32px',
+            background: '#ffe0007a',
+            borderRadius: '20px 20px 0 0',
+            height: 50,
+          }}
         >
-          Task number: {task.number}
-        </Typography>
+          <Typography
+            id="modal-modal-title"
+            variant="h5"
+            component="h2"
+            sx={{ marginRight: 'auto', padding: '10px' }}
+          >
+            Task number: {task.number}
+          </Typography>
+          {edit ? (
+            <>
+              <Button
+                sx={{ minWidth: 45 }}
+                type="submit"
+              >
+                <DoneIcon />
+              </Button>
+              <Button
+                sx={{ minWidth: 45 }}
+                onClick={() => {
+                  setEdit(false);
+                  setTaskUpdate(task);
+                }}
+              >
+                <ClearIcon />
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                sx={{ minWidth: 45 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setEdit(true);
+                }}
+              >
+                <EditIcon />
+              </Button>
+              <Button
+                sx={{ minWidth: 45 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setDeleteModal(true);
+                }}
+              >
+                <DeleteIcon />
+              </Button>
+              <Button
+                sx={{ minWidth: 45 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setModalOpen(false);
+                }}
+              >
+                <CloseIcon />
+              </Button>
+            </>
+          )}
+        </Box>
         <Typography
           id="modal-modal-title"
           variant="h5"
           component="h2"
-          sx={{ marginBottom: 1 }}
+          sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
         >
           Name:{' '}
           {edit ? (
             <TextField
+              fullWidth
+              multiline
+              variant="standard"
               type="input"
               value={taskUpdate.name}
               onChange={(e) => {
                 setTaskUpdate({ ...taskUpdate, name: e.target.value });
               }}
-            ></TextField>
+              sx={{ marginLeft: 1 }}
+            />
           ) : (
             task.name
           )}
@@ -126,17 +175,21 @@ const TaskModal: React.FC<{
           id="modal-modal-title"
           variant="h5"
           component="h2"
-          sx={{ marginBottom: 1 }}
+          sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
         >
           Description:{' '}
           {edit ? (
             <TextField
+              fullWidth
+              multiline
+              variant="standard"
               type="input"
               value={taskUpdate.description}
               onChange={(e) => {
                 setTaskUpdate({ ...taskUpdate, description: e.target.value });
               }}
-            ></TextField>
+              sx={{ marginLeft: 1 }}
+            />
           ) : (
             task.description
           )}
@@ -145,7 +198,7 @@ const TaskModal: React.FC<{
           id="modal-modal-title"
           variant="h5"
           component="h2"
-          sx={{ marginBottom: 1 }}
+          sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
         >
           {`Date of creation: ${new Date(task.dateCreate).toString()}`}
         </Typography>
@@ -161,7 +214,7 @@ const TaskModal: React.FC<{
           id="modal-modal-title"
           variant="h5"
           component="h2"
-          sx={{ marginBottom: 1 }}
+          sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
         >
           Priority:{' '}
           {edit ? (
@@ -171,6 +224,8 @@ const TaskModal: React.FC<{
                 onChange={(e) => {
                   setTaskUpdate({ ...taskUpdate, priority: e.target.value as Priority });
                 }}
+                sx={{ marginLeft: 1 }}
+                variant="standard"
               >
                 {['low', 'medium', 'high'].map((priority) => {
                   return (
@@ -192,7 +247,7 @@ const TaskModal: React.FC<{
           id="modal-modal-title"
           variant="h5"
           component="h2"
-          sx={{ marginBottom: 1 }}
+          sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
         >
           Status:{' '}
           {edit ? (
@@ -202,6 +257,8 @@ const TaskModal: React.FC<{
                 onChange={(e) => {
                   setTaskUpdate({ ...taskUpdate, status: e.target.value as Status });
                 }}
+                sx={{ marginLeft: 1 }}
+                variant="standard"
               >
                 {['Queue', 'Development', 'Done'].map((status) => {
                   return (
@@ -219,6 +276,11 @@ const TaskModal: React.FC<{
             task.status
           )}
         </Typography>
+        <DeleteTaskModal
+          open={deleteModal}
+          setOpen={setDeleteModal}
+          deleteTask={deleteTask}
+        />
       </Box>
     </Modal>
   );

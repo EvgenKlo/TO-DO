@@ -2,12 +2,13 @@ import { Box, Typography } from '@mui/material';
 
 const Header = () => {
   return (
-    <Box sx={{ position: 'fixed', width: '100%' }}>
+    <Box sx={{ width: '100%' }}>
       <Typography
         variant="h1"
         textAlign="center"
-        fontSize={30}
+        fontSize={40}
         margin={2}
+        fontWeight={700}
       >
         Task Board
       </Typography>

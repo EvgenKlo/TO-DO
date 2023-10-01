@@ -23,6 +23,8 @@ export enum Actions {
   AddTask = 'ADD_TASK',
   EditTask = 'EDIT_TASK',
   ChangeStatus = 'CHANGE_STATUS',
+  DeleteTask = 'DELETE_TASK',
+  EditProject = 'EDIT_PROJECT',
 }
 
 export type Task = {

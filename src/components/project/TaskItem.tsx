@@ -23,13 +23,12 @@ const TaskItem: React.FC<{ item: Task }> = ({ item }) => {
       <Card
         sx={{
           margin: 1,
-          border: `2px solid ${
+          background:
             item.priority === Priority.low
-              ? 'green'
+              ? '#addbb142'
               : item.priority === Priority.medium
-              ? 'yellow'
-              : 'red'
-          }`,
+              ? '#aeb73742'
+              : '#b7373742',
         }}
         ref={dragPreview}
         style={{ opacity: isDragging ? 0.5 : 1 }}

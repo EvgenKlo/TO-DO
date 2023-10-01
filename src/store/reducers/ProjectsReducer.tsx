@@ -30,7 +30,22 @@ interface ChangeStatus {
   };
 }
 
-type UserAction = AddProject | AddTask | EditTask | ChangeStatus;
+interface DeleteTask {
+  type: Actions.DeleteTask;
+  payload: {
+    projectId: number;
+    taskNumber: number;
+  };
+}
+
+interface EditProject {
+  type: Actions.EditProject;
+  payload: {
+    project: Project;
+  };
+}
+
+type UserAction = AddProject | AddTask | EditTask | ChangeStatus | DeleteTask | EditProject;
 
 const localStorageData = localStorage.getItem('01MyToDoList23');
 
@@ -75,6 +90,31 @@ export function projectsReducer(state = initialState, action: UserAction): Proje
       );
       localStorage.setItem('01MyToDoList23', JSON.stringify(state));
       return state;
+    case Actions.DeleteTask: {
+      state = state.map((item) =>
+        item.id === action.payload.projectId
+          ? {
+              ...item,
+              tasks: item.tasks?.filter((task) => task.number !== action.payload.taskNumber),
+            }
+          : item
+      );
+      localStorage.setItem('01MyToDoList23', JSON.stringify(state));
+      return state;
+    }
+    case Actions.EditProject: {
+      state = state.map((item) =>
+        item.id === action.payload.project.id
+          ? {
+              ...item,
+              name: action.payload.project.name,
+              description: action.payload.project.description,
+            }
+          : item
+      );
+      localStorage.setItem('01MyToDoList23', JSON.stringify(state));
+      return state;
+    }
     default:
       return state;
   }
