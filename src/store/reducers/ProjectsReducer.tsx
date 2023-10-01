@@ -1,4 +1,4 @@
-import { Actions, Project, Status, Task } from '../../types/types';
+import { Actions, Project, Status, Subtask, Task } from '../../types/types';
 
 interface AddProject {
   type: Actions.AddProject;
@@ -45,13 +45,35 @@ interface EditProject {
   };
 }
 
-type UserAction = AddProject | AddTask | EditTask | ChangeStatus | DeleteTask | EditProject;
+interface AddSubtask {
+  type: Actions.AddSubtask;
+  payload: {
+    task: Task;
+    subtask: Subtask;
+  };
+}
+
+type UserAction =
+  | AddProject
+  | AddTask
+  | EditTask
+  | ChangeStatus
+  | DeleteTask
+  | EditProject
+  | AddSubtask;
 
 const localStorageData = localStorage.getItem('01MyToDoList23');
 
 const initialState: Project[] = localStorageData
   ? (JSON.parse(localStorageData) as Project[])
-  : [{ name: 'New project', description: 'Test project', id: 1, tasks: [] }];
+  : [
+      {
+        name: 'Your first project',
+        description: 'Use my application to realize your ideas',
+        id: 1,
+        tasks: [],
+      },
+    ];
 
 export function projectsReducer(state = initialState, action: UserAction): Project[] {
   switch (action.type) {
@@ -115,6 +137,12 @@ export function projectsReducer(state = initialState, action: UserAction): Proje
       localStorage.setItem('01MyToDoList23', JSON.stringify(state));
       return state;
     }
+    case Actions.AddSubtask:
+      action.payload.task.subtasks?.push(action.payload.subtask);
+
+      localStorage.setItem('01MyToDoList23', JSON.stringify(state));
+      return state;
+
     default:
       return state;
   }

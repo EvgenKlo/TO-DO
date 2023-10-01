@@ -45,6 +45,7 @@ const AddTaskModal: React.FC<{
           number: taskId,
           priority: Priority.low,
           projectId: projectId,
+          subtasks: [],
         },
       },
     });

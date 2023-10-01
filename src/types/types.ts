@@ -25,6 +25,7 @@ export enum Actions {
   ChangeStatus = 'CHANGE_STATUS',
   DeleteTask = 'DELETE_TASK',
   EditProject = 'EDIT_PROJECT',
+  AddSubtask = 'ADD_SUBTASK',
 }
 
 export type Task = {
@@ -37,8 +38,14 @@ export type Task = {
   priority: Priority;
   files: string;
   status: Status;
-  subtasks?: string;
+  subtasks?: Subtask[];
   projectId: number;
+};
+
+export type Subtask = {
+  description: string;
+  id: number;
+  complete: boolean;
 };
 
 export enum Status {

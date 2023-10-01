@@ -18,6 +18,7 @@ import { msToTime } from '../../helpers/time';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteTaskModal from './DeleteTaskModal';
+import SubtaskModal from './SubtaskModal';
 
 const style = {
   position: 'absolute',
@@ -51,6 +52,8 @@ const TaskModal: React.FC<{
   const [taskUpdate, setTaskUpdate] = useState(task);
 
   const [deleteModal, setDeleteModal] = useState(false);
+
+  const [subtasksModal, setSubtasksModal] = useState(false);
 
   const deleteTask = () => {
     dispatch({
@@ -148,7 +151,6 @@ const TaskModal: React.FC<{
           )}
         </Box>
         <Typography
-          id="modal-modal-title"
           variant="h5"
           component="h2"
           sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
@@ -171,7 +173,6 @@ const TaskModal: React.FC<{
           )}
         </Typography>
         <Typography
-          id="modal-modal-title"
           variant="h5"
           component="h2"
           sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
@@ -195,7 +196,6 @@ const TaskModal: React.FC<{
           )}
         </Typography>
         <Typography
-          id="modal-modal-title"
           variant="h5"
           component="h2"
           sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
@@ -203,7 +203,6 @@ const TaskModal: React.FC<{
           {`Date of creation: ${new Date(task.dateCreate).toLocaleString()}`}
         </Typography>
         <Typography
-          id="modal-modal-title"
           variant="h5"
           component="h2"
           sx={{ marginBottom: 1 }}
@@ -211,7 +210,6 @@ const TaskModal: React.FC<{
           {`Time at work: ${msToTime(Date.now() - task.dateCreate)}`}
         </Typography>
         <Typography
-          id="modal-modal-title"
           variant="h5"
           component="h2"
           sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
@@ -244,7 +242,6 @@ const TaskModal: React.FC<{
           )}
         </Typography>
         <Typography
-          id="modal-modal-title"
           variant="h5"
           component="h2"
           sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
@@ -276,10 +273,29 @@ const TaskModal: React.FC<{
             task.status
           )}
         </Typography>
+        <Button
+          variant="contained"
+          sx={{ marginRight: 1 }}
+          onClick={() => setSubtasksModal(true)}
+        >
+          Subtasks{' '}
+          {task.subtasks?.length
+            ? task.subtasks?.filter((item) => item.complete === false).length
+            : 0}{' '}
+          /{' '}
+          {task.subtasks?.length
+            ? task.subtasks?.filter((item) => item.complete === true).length
+            : 0}
+        </Button>
         <DeleteTaskModal
           open={deleteModal}
           setOpen={setDeleteModal}
           deleteTask={deleteTask}
+        />
+        <SubtaskModal
+          modalOpen={subtasksModal}
+          setModalOpen={setSubtasksModal}
+          task={task}
         />
       </Box>
     </Modal>
