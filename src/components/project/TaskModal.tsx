@@ -275,17 +275,21 @@ const TaskModal: React.FC<{
         </Typography>
         <Button
           variant="contained"
-          sx={{ marginRight: 1 }}
+          sx={{ margin: 0.5 }}
           onClick={() => setSubtasksModal(true)}
         >
           Subtasks{' '}
           {task.subtasks?.length
             ? task.subtasks?.filter((item) => item.complete === false).length
             : 0}{' '}
-          /{' '}
-          {task.subtasks?.length
-            ? task.subtasks?.filter((item) => item.complete === true).length
-            : 0}
+          / {task.subtasks?.length}
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ margin: 0.5 }}
+          onClick={() => setSubtasksModal(true)}
+        >
+          Comments {task.comments.length ? task.comments.length : 0}
         </Button>
         <DeleteTaskModal
           open={deleteModal}

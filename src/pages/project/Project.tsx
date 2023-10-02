@@ -32,14 +32,19 @@ const Project = () => {
       ) : (
         <>
           <Typography variant="h4">{project.name}</Typography>
-          <Typography variant="body1">{project.description}</Typography>
+          <Typography
+            variant="body1"
+            sx={{ marginBottom: 1 }}
+          >
+            {project.description}
+          </Typography>
           <Link to={'/'}>
             <Button
               sx={buttonStyle}
               variant="contained"
             >
               <KeyboardBackspaceIcon sx={{ marginRight: 1 }} />
-              back to projects
+              projects
             </Button>
           </Link>
           <Button
@@ -49,7 +54,7 @@ const Project = () => {
             sx={buttonStyle}
             variant="contained"
           >
-            <AddCircleOutlineIcon sx={{ marginRight: 1 }} /> Create task
+            <AddCircleOutlineIcon sx={{ marginRight: 1 }} /> task
           </Button>
           <Button
             sx={buttonStyle}

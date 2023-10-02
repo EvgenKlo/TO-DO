@@ -42,6 +42,12 @@ export type Task = {
   status: Status;
   subtasks?: Subtask[];
   projectId: number;
+  comments: Comment[];
+};
+
+export type Comment = {
+  text: string;
+  comments: Comment[];
 };
 
 export type Subtask = {

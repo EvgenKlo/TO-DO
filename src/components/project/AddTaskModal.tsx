@@ -46,6 +46,7 @@ const AddTaskModal: React.FC<{
           priority: Priority.low,
           projectId: projectId,
           subtasks: [],
+          comments: [],
         },
       },
     });
