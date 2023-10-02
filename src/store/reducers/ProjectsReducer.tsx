@@ -53,6 +53,23 @@ interface AddSubtask {
   };
 }
 
+interface DeleteSubtask {
+  type: Actions.DeleteSubtask;
+  payload: {
+    task: Task;
+    subtaskId: number;
+  };
+}
+
+interface ChangeSubtaskStatus {
+  type: Actions.ChangeSubtaskStatus;
+  payload: {
+    task: Task;
+    subtaskId: number;
+    subtaskStatus: boolean;
+  };
+}
+
 type UserAction =
   | AddProject
   | AddTask
@@ -60,7 +77,9 @@ type UserAction =
   | ChangeStatus
   | DeleteTask
   | EditProject
-  | AddSubtask;
+  | AddSubtask
+  | DeleteSubtask
+  | ChangeSubtaskStatus;
 
 const localStorageData = localStorage.getItem('01MyToDoList23');
 
@@ -138,8 +157,62 @@ export function projectsReducer(state = initialState, action: UserAction): Proje
       return state;
     }
     case Actions.AddSubtask:
-      action.payload.task.subtasks?.push(action.payload.subtask);
+      state = state.map((project) =>
+        project.id === action.payload.task.projectId
+          ? {
+              ...project,
+              tasks: project.tasks?.map((task) =>
+                task.number === action.payload.task.number
+                  ? { ...task, subtasks: [...(task.subtasks as Subtask[]), action.payload.subtask] }
+                  : task
+              ),
+            }
+          : project
+      );
+      localStorage.setItem('01MyToDoList23', JSON.stringify(state));
+      return state;
 
+    case Actions.DeleteSubtask:
+      state = state.map((project) =>
+        project.id === action.payload.task.projectId
+          ? {
+              ...project,
+              tasks: project.tasks?.map((task) =>
+                task.number === action.payload.task.number
+                  ? {
+                      ...task,
+                      subtasks: task.subtasks?.filter(
+                        (item) => item.id !== action.payload.subtaskId
+                      ),
+                    }
+                  : task
+              ),
+            }
+          : project
+      );
+      localStorage.setItem('01MyToDoList23', JSON.stringify(state));
+      return state;
+
+    case Actions.ChangeSubtaskStatus:
+      state = state.map((project) =>
+        project.id === action.payload.task.projectId
+          ? {
+              ...project,
+              tasks: project.tasks?.map((task) =>
+                task.number === action.payload.task.number
+                  ? {
+                      ...task,
+                      subtasks: task.subtasks?.map((item) =>
+                        item.id === action.payload.subtaskId
+                          ? { ...item, complete: action.payload.subtaskStatus }
+                          : item
+                      ),
+                    }
+                  : task
+              ),
+            }
+          : project
+      );
       localStorage.setItem('01MyToDoList23', JSON.stringify(state));
       return state;
 

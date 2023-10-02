@@ -26,6 +26,8 @@ export enum Actions {
   DeleteTask = 'DELETE_TASK',
   EditProject = 'EDIT_PROJECT',
   AddSubtask = 'ADD_SUBTASK',
+  DeleteSubtask = 'DELETE_SUBTASK',
+  ChangeSubtaskStatus = 'CHANGE_SUBTASK_STATUS',
 }
 
 export type Task = {

@@ -5,17 +5,22 @@ import { Actions, Subtask, Task } from '../../types/types';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import emptyList from './../../assets/86a31126-7879-4283-9b92-f229b4748e84.png';
+import SubtaskItem from './SubtaskItem';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  minWidth: 320,
   bgcolor: 'background.paper',
-  borderRadius: 5,
   boxShadow: 24,
   p: 4,
+  borderRadius: 5,
+  boxSizing: 'border-box',
+  textAlign: 'center',
 };
 
 const SubtaskModal: React.FC<{
@@ -43,13 +48,21 @@ const SubtaskModal: React.FC<{
           id="modal-modal-title"
           variant="h6"
           component="h2"
+          sx={{
+            margin: '-32px -32px 10px -32px',
+            background: '#3fbb306b',
+            borderRadius: '20px 20px 0 0',
+            padding: 1,
+          }}
         >
-          Task name: {task.name}
+          Task: {task.name}
         </Typography>
-        <Box>
+        <Box sx={{ display: 'flex', overflow: 'hidden', marginBottom: 1 }}>
           <TextField
+            fullWidth
             variant="standard"
             value={newSubtask}
+            placeholder="New subtask"
             onChange={(e) => {
               setNewSubtask(e.target.value);
             }}
@@ -57,23 +70,45 @@ const SubtaskModal: React.FC<{
           <Button
             variant="contained"
             onClick={() => {
-              dispatch({
-                type: Actions.AddSubtask,
-                payload: {
-                  task: task,
-                  subtask: {
-                    description: newSubtask,
-                    id: task.subtasks?.length ? task.subtasks.length + 1 : 1,
-                    complete: false,
-                  } as Subtask,
-                },
-              });
+              newSubtask &&
+                dispatch({
+                  type: Actions.AddSubtask,
+                  payload: {
+                    task: task,
+                    subtask: {
+                      description: newSubtask,
+                      id: task.subtasks?.length
+                        ? task.subtasks[task.subtasks.length - 1].id + 1
+                        : 1,
+                      complete: false,
+                    } as Subtask,
+                  },
+                });
               setNewSubtask('');
             }}
+            sx={{ marginLeft: 1, whiteSpace: 'nowrap' }}
           >
-            Add subtask
+            <AddCircleOutlineIcon sx={{ marginRight: 0.5 }} /> task
           </Button>
         </Box>
+        {task.subtasks?.length ? (
+          <Box sx={{ overflow: 'auto', maxHeight: '70vh' }}>
+            {task.subtasks.map((subtask) => (
+              <SubtaskItem
+                subtask={subtask}
+                task={task}
+                key={subtask.id}
+              />
+            ))}
+          </Box>
+        ) : (
+          <img
+            src={emptyList}
+            width={'70%'}
+            alt="empty list"
+            style={{ margin: 'auto' }}
+          />
+        )}
       </Box>
     </Modal>
   );

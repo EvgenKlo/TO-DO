@@ -66,7 +66,7 @@ const ProjectColumn: React.FC<{ project: Project; columnName: Status }> = ({
           src={emptyList}
           width={'70%'}
           alt="empty list"
-        ></img>
+        />
       )}
     </Grid>
   );
