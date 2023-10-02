@@ -12,11 +12,12 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  minWidth: 320,
   bgcolor: 'background.paper',
   borderRadius: 5,
   boxShadow: 24,
   p: 4,
+  boxSizing: 'border-box',
 };
 
 const EditProjectModal: React.FC<{

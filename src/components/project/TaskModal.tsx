@@ -279,17 +279,19 @@ const TaskModal: React.FC<{
           onClick={() => setSubtasksModal(true)}
         >
           Subtasks{' '}
-          {task.subtasks?.length
-            ? task.subtasks?.filter((item) => item.complete === false).length
+          {task.subtasks
+            ? task.subtasks?.length
+              ? task.subtasks?.filter((item) => item.complete === false).length
+              : 0
             : 0}{' '}
-          / {task.subtasks?.length}
+          / {task.subtasks ? task.subtasks?.length : 0}
         </Button>
         <Button
           variant="contained"
           sx={{ margin: 0.5 }}
           onClick={() => setSubtasksModal(true)}
         >
-          Comments {task.comments.length ? task.comments.length : 0}
+          Comments {task.comments ? (task.comments.length ? task.comments.length : 0) : 0}
         </Button>
         <DeleteTaskModal
           open={deleteModal}
