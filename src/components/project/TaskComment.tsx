@@ -22,7 +22,7 @@ const TaskComment: React.FC<{ comment: CommentItem; task: Task; taskComments: Co
       sx={{
         flexDirection: 'column',
         background: '#8080803b',
-        padding: 0,
+        padding: 0.5,
         margin: 0.5,
         borderRadius: 1,
         width: 'calc(100% - 8px)',

@@ -307,10 +307,12 @@ const TaskModal: React.FC<{
             Comments {comments ? (comments.length ? comments.length : 0) : 0}
           </Button>
           {commentsOpen && (
-            <CommentContent
-              task={task}
-              taskComments={task.comments}
-            />
+            <Box sx={{ overflow: 'auto', maxHeight: '50vh' }}>
+              <CommentContent
+                task={task}
+                taskComments={task.comments}
+              />
+            </Box>
           )}
           <DeleteTaskModal
             open={deleteModal}

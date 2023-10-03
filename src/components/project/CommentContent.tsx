@@ -14,7 +14,7 @@ const CommentContent: React.FC<{ task: Task; taskComments: CommentItem[] }> = ({
   const [newComment, setNewComment] = useState('');
 
   return (
-    <Box sx={{ marginTop: 1 }}>
+    <Box sx={{ marginTop: 1, width: '100%' }}>
       <Box sx={{ display: 'flex', overflow: 'hidden' }}>
         <TextField
           fullWidth
@@ -49,7 +49,7 @@ const CommentContent: React.FC<{ task: Task; taskComments: CommentItem[] }> = ({
         </Button>
       </Box>
       {taskComments.length ? (
-        <List sx={{ overflow: 'auto', maxHeight: '50vh' }}>
+        <List>
           {taskComments.map((item) => (
             <TaskComment
               key={item.id}
