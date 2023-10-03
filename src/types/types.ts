@@ -28,6 +28,7 @@ export enum Actions {
   AddSubtask = 'ADD_SUBTASK',
   DeleteSubtask = 'DELETE_SUBTASK',
   ChangeSubtaskStatus = 'CHANGE_SUBTASK_STATUS',
+  AddComment = 'ADD_COMMENT',
 }
 
 export type Task = {
@@ -42,12 +43,13 @@ export type Task = {
   status: Status;
   subtasks?: Subtask[];
   projectId: number;
-  comments: Comment[];
+  comments: CommentItem[];
 };
 
-export type Comment = {
+export type CommentItem = {
   text: string;
-  comments: Comment[];
+  id: number;
+  comments: CommentItem[];
 };
 
 export type Subtask = {

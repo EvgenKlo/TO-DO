@@ -1,4 +1,4 @@
-import { Actions, Project, Status, Subtask, Task } from '../../types/types';
+import { Actions, Project, Status, Subtask, Task, CommentItem } from '../../types/types';
 
 interface AddProject {
   type: Actions.AddProject;
@@ -70,6 +70,14 @@ interface ChangeSubtaskStatus {
   };
 }
 
+interface AddComment {
+  type: Actions.AddComment;
+  payload: {
+    task: Task;
+    comments: CommentItem[];
+  };
+}
+
 type UserAction =
   | AddProject
   | AddTask
@@ -79,7 +87,8 @@ type UserAction =
   | EditProject
   | AddSubtask
   | DeleteSubtask
-  | ChangeSubtaskStatus;
+  | ChangeSubtaskStatus
+  | AddComment;
 
 const localStorageData = localStorage.getItem('01MyToDoList23');
 
@@ -208,6 +217,22 @@ export function projectsReducer(state = initialState, action: UserAction): Proje
                           : item
                       ),
                     }
+                  : task
+              ),
+            }
+          : project
+      );
+      localStorage.setItem('01MyToDoList23', JSON.stringify(state));
+      return state;
+
+    case Actions.AddComment:
+      state = state.map((project) =>
+        project.id === action.payload.task.projectId
+          ? {
+              ...project,
+              tasks: project.tasks?.map((task) =>
+                task.number === action.payload.task.number
+                  ? { ...task, comments: action.payload.comments }
                   : task
               ),
             }

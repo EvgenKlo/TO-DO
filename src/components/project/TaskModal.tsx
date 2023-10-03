@@ -19,6 +19,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteTaskModal from './DeleteTaskModal';
 import SubtaskModal from './SubtaskModal';
+import CommentContent from './CommentContent';
 
 const style = {
   position: 'absolute',
@@ -54,6 +55,10 @@ const TaskModal: React.FC<{
   const [deleteModal, setDeleteModal] = useState(false);
 
   const [subtasksModal, setSubtasksModal] = useState(false);
+
+  const [commentsOpen, setCommentsOpen] = useState(false);
+
+  const comments = task.comments && task.comments;
 
   const deleteTask = () => {
     dispatch({
@@ -289,10 +294,16 @@ const TaskModal: React.FC<{
         <Button
           variant="contained"
           sx={{ margin: 0.5 }}
-          onClick={() => setSubtasksModal(true)}
+          onClick={() => setCommentsOpen(!commentsOpen)}
         >
-          Comments {task.comments ? (task.comments.length ? task.comments.length : 0) : 0}
+          Comments {comments ? (comments.length ? comments.length : 0) : 0}
         </Button>
+        {commentsOpen && (
+          <CommentContent
+            task={task}
+            taskComments={task.comments}
+          />
+        )}
         <DeleteTaskModal
           open={deleteModal}
           setOpen={setDeleteModal}
