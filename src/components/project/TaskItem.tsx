@@ -44,7 +44,7 @@ const TaskItem: React.FC<{ item: Task }> = ({ item }) => {
               component="div"
               sx={{ overflow: 'hidden' }}
             >
-              {item.name}
+              <span style={{ fontWeight: 'bold' }}>#{item.number}</span> {item.name}
             </Typography>
             <Typography
               variant="body2"

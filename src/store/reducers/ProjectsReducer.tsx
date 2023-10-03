@@ -132,7 +132,11 @@ export function projectsReducer(state = initialState, action: UserAction): Proje
               ...item,
               tasks: item.tasks?.map((task) =>
                 task.number === action.payload.taskNumber
-                  ? { ...task, status: action.payload.taskStatus }
+                  ? {
+                      ...task,
+                      status: action.payload.taskStatus,
+                      expirationDate: action.payload.taskStatus === Status.done ? Date.now() : 0,
+                    }
                   : task
               ),
             }

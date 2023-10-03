@@ -37,7 +37,7 @@ export type Task = {
   description: string;
   dateCreate: number;
   timeInWork: string;
-  expirationDate: string;
+  expirationDate: number;
   priority: Priority;
   files: string;
   status: Status;

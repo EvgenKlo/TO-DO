@@ -201,7 +201,11 @@ const TaskModal: React.FC<{
             component="h2"
             sx={{ marginBottom: 1 }}
           >
-            {`Time at work: ${msToTime(Date.now() - task.dateCreate)}`}
+            {`Time at work: ${
+              task.expirationDate
+                ? msToTime(task.expirationDate - task.dateCreate)
+                : msToTime(Date.now() - task.dateCreate)
+            }`}
           </Typography>
           <Typography
             variant="h5"
@@ -267,6 +271,15 @@ const TaskModal: React.FC<{
               task.status
             )}
           </Typography>
+          {!!task.expirationDate && (
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{ marginBottom: 1 }}
+            >
+              {`Expiration date: ${new Date(task.expirationDate).toLocaleString()}`}
+            </Typography>
+          )}
           <Button
             variant="contained"
             sx={{ margin: 0.5 }}
