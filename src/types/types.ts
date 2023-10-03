@@ -59,9 +59,9 @@ export type Subtask = {
 };
 
 export enum Status {
-  queue = 'Queue',
-  development = 'Development',
-  done = 'Done',
+  Queue = 'Queue',
+  Development = 'Development',
+  Done = 'Done',
 }
 
 export enum Priority {

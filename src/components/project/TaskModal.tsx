@@ -70,7 +70,13 @@ const TaskModal: React.FC<{
           e.preventDefault();
           dispatch({
             type: Actions.EditTask,
-            payload: { projectId: task.projectId, task: taskUpdate },
+            payload: {
+              projectId: task.projectId,
+              task: {
+                ...taskUpdate,
+                expirationDate: taskUpdate.status === Status.Done ? Date.now() : 0,
+              },
+            },
           });
           setEdit(false);
         }}
@@ -223,7 +229,7 @@ const TaskModal: React.FC<{
                   sx={{ marginLeft: 1 }}
                   variant="standard"
                 >
-                  {['low', 'medium', 'high'].map((priority) => {
+                  {Object.keys(Priority).map((priority) => {
                     return (
                       <MenuItem
                         key={priority}
@@ -255,7 +261,7 @@ const TaskModal: React.FC<{
                   sx={{ marginLeft: 1 }}
                   variant="standard"
                 >
-                  {['Queue', 'Development', 'Done'].map((status) => {
+                  {Object.keys(Status).map((status) => {
                     return (
                       <MenuItem
                         key={status}

@@ -135,7 +135,7 @@ export function projectsReducer(state = initialState, action: UserAction): Proje
                   ? {
                       ...task,
                       status: action.payload.taskStatus,
-                      expirationDate: action.payload.taskStatus === Status.done ? Date.now() : 0,
+                      expirationDate: action.payload.taskStatus === Status.Done ? Date.now() : 0,
                     }
                   : task
               ),

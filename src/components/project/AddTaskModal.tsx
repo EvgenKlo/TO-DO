@@ -29,7 +29,7 @@ const AddTaskModal: React.FC<{
         task: {
           ...task,
           dateCreate: Date.now(),
-          status: Status.queue,
+          status: Status.Queue,
           number: taskId,
           priority: Priority.low,
           projectId: projectId,

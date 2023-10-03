@@ -11,7 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import EditProjectModal from '../../components/project/EditProjectModal';
 import SearchTask from '../../components/project/SearchTask';
 
-const columnNames = ['Queue', 'Development', 'Done'] as Status[];
+// const columnNames = ['Queue', 'Development', 'Done'] as Status[];
 
 const buttonStyle = { margin: '0px 0px 16px 16px' };
 
@@ -69,10 +69,10 @@ const Project = () => {
             container
             gap={1}
           >
-            {columnNames.map((item) => (
+            {Object.keys(Status).map((item) => (
               <ProjectColumn
                 project={project}
-                columnName={item}
+                columnName={item as Status}
                 key={item}
               />
             ))}
