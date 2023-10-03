@@ -9,6 +9,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import EditIcon from '@mui/icons-material/Edit';
 import EditProjectModal from '../../components/project/EditProjectModal';
+import SearchTask from '../../components/project/SearchTask';
 
 const columnNames = ['Queue', 'Development', 'Done'] as Status[];
 
@@ -63,6 +64,7 @@ const Project = () => {
           >
             <EditIcon />
           </Button>
+          <SearchTask project={project} />
           <Grid
             container
             gap={1}
