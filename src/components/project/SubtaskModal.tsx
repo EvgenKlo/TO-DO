@@ -8,20 +8,7 @@ import { useDispatch } from 'react-redux';
 import emptyList from './../../assets/86a31126-7879-4283-9b92-f229b4748e84.png';
 import SubtaskItem from './SubtaskItem';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  minWidth: 320,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 5,
-  boxSizing: 'border-box',
-  textAlign: 'center',
-};
+import { style } from '../../styles/modalStyle';
 
 const SubtaskModal: React.FC<{
   modalOpen: false | true;
@@ -43,7 +30,7 @@ const SubtaskModal: React.FC<{
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={{ ...style, textAlign: 'center' }}>
         <Typography
           id="modal-modal-title"
           variant="h6"

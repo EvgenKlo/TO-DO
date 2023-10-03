@@ -6,19 +6,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  minWidth: 320,
-  bgcolor: 'background.paper',
-  borderRadius: 5,
-  boxShadow: 24,
-  p: 4,
-  boxSizing: 'border-box',
-};
+import { style } from '../../styles/modalStyle';
 
 const EditProjectModal: React.FC<{
   modalOpen: false | true;

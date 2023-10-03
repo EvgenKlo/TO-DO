@@ -20,19 +20,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteTaskModal from './DeleteTaskModal';
 import SubtaskModal from './SubtaskModal';
 import CommentContent from './CommentContent';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  minWidth: 320,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  borderRadius: 5,
-  p: 4,
-  boxSizing: 'border-box',
-};
+import { style } from '../../styles/modalStyle';
 
 const TaskModal: React.FC<{
   modalOpen: false | true;

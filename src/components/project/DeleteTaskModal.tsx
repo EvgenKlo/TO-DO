@@ -1,19 +1,6 @@
 import { Box, Button, Modal, Typography } from '@mui/material';
 import WarningIcon from '@mui/icons-material/Warning';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 350,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: '10px',
-  boxSizing: 'border-box',
-  display: 'flex',
-};
+import { style } from '../../styles/modalStyle';
 
 const DeleteTaskModal: React.FC<{
   open: false | true;
@@ -29,7 +16,7 @@ const DeleteTaskModal: React.FC<{
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={{ ...style, minWidth: 0, width: 350, display: 'flex' }}>
         <WarningIcon
           color="secondary"
           sx={{ textAlign: 'end', fontSize: '7rem' }}

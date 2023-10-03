@@ -4,19 +4,7 @@ import { Task } from '../../types/types';
 import TaskItem from './TaskItem';
 import { Button, List, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  minWidth: 320,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  borderRadius: 5,
-  p: 4,
-  boxSizing: 'border-box',
-};
+import { style } from '../../styles/modalStyle';
 
 const SearchTasksModal: React.FC<{
   tasks: Task[];

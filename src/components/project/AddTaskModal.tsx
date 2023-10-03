@@ -2,19 +2,7 @@ import { Box, Button, Modal, Stack, TextField, Typography } from '@mui/material'
 import { Actions, Priority, Status, Task } from '../../types/types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  minWidth: 320,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 5,
-  boxSizing: 'border-box',
-};
+import { style } from '../../styles/modalStyle';
 
 const AddTaskModal: React.FC<{
   modalOpen: false | true;

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Actions, CommentItem, Task } from '../../types/types';
 import TaskComment from './TaskComment';
-import RateReviewIcon from '@mui/icons-material/RateReview';
+import AddCommentIcon from '@mui/icons-material/AddComment';
 
 const CommentContent: React.FC<{ task: Task; taskComments: CommentItem[] }> = ({
   task,
@@ -15,7 +15,7 @@ const CommentContent: React.FC<{ task: Task; taskComments: CommentItem[] }> = ({
 
   return (
     <Box sx={{ marginTop: 1 }}>
-      <Box sx={{ display: 'flex', overflow: 'hidden', marginBottom: 1 }}>
+      <Box sx={{ display: 'flex', overflow: 'hidden' }}>
         <TextField
           fullWidth
           variant="standard"
@@ -26,7 +26,6 @@ const CommentContent: React.FC<{ task: Task; taskComments: CommentItem[] }> = ({
           }}
         />
         <Button
-          variant="contained"
           onClick={() => {
             if (newComment) {
               taskComments.push({
@@ -44,9 +43,9 @@ const CommentContent: React.FC<{ task: Task; taskComments: CommentItem[] }> = ({
               setNewComment('');
             }
           }}
-          sx={{ marginLeft: 1, whiteSpace: 'nowrap' }}
+          sx={{ whiteSpace: 'nowrap' }}
         >
-          <RateReviewIcon />
+          <AddCommentIcon sx={{ fontSize: '2rem' }} />
         </Button>
       </Box>
       {taskComments.length ? (

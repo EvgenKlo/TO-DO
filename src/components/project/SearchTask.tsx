@@ -49,7 +49,9 @@ const SearchTask: React.FC<{ project: Project }> = ({ project }) => {
         component="form"
         onSubmit={(e) => {
           e.preventDefault();
-          const result = project.tasks?.filter((task) => task.name.indexOf(nameSearch) >= 0);
+          const result = project.tasks?.filter(
+            (task) => task.name.toLocaleLowerCase().indexOf(nameSearch.toLocaleLowerCase()) >= 0
+          );
           setTasks(result ? result : []);
           setOpen(true);
           setNameSearch('');
