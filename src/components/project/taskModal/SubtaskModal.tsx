@@ -1,14 +1,14 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Actions, Subtask, Task } from '../../types/types';
+import { Actions, Subtask, Task } from '../../../types/types';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import emptyList from './../../assets/86a31126-7879-4283-9b92-f229b4748e84.png';
+import emptyList from './../../../assets/86a31126-7879-4283-9b92-f229b4748e84.png';
 import SubtaskItem from './SubtaskItem';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { style } from '../../styles/modalStyle';
+import { style } from '../../../styles/modalStyle';
 
 const SubtaskModal: React.FC<{
   modalOpen: false | true;

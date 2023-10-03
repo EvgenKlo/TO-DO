@@ -1,5 +1,5 @@
 import { Badge, Box, Button, ListItem, Typography } from '@mui/material';
-import { Actions, CommentItem, Task } from '../../types/types';
+import { Actions, CommentItem, Task } from '../../../types/types';
 import { useState } from 'react';
 import CommentContent from './CommentContent';
 import { useDispatch } from 'react-redux';

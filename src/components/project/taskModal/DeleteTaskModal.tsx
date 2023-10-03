@@ -1,6 +1,6 @@
 import { Box, Button, Modal, Typography } from '@mui/material';
 import WarningIcon from '@mui/icons-material/Warning';
-import { style } from '../../styles/modalStyle';
+import { style } from '../../../styles/modalStyle';
 
 const DeleteTaskModal: React.FC<{
   open: false | true;

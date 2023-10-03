@@ -1,26 +1,12 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  MenuItem,
-  Modal,
-  Select,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { Actions, Priority, Status, Task } from '../../types/types';
-import EditIcon from '@mui/icons-material/Edit';
-import DoneIcon from '@mui/icons-material/Done';
-import ClearIcon from '@mui/icons-material/Clear';
+import { Box, Modal } from '@mui/material';
+import { Actions, Status, Task } from '../../types/types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { msToTime } from '../../helpers/time';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CloseIcon from '@mui/icons-material/Close';
-import DeleteTaskModal from './DeleteTaskModal';
-import SubtaskModal from './SubtaskModal';
-import CommentContent from './CommentContent';
 import { style } from '../../styles/modalStyle';
+import TaskFields from './taskModal/TaskFields';
+import TaskManage from './taskModal/TaskManage';
+import DeleteTaskModal from './taskModal/DeleteTaskModal';
+import SubtaskModal from './taskModal/SubtaskModal';
 
 const TaskModal: React.FC<{
   modalOpen: false | true;
@@ -43,10 +29,6 @@ const TaskModal: React.FC<{
   const [deleteModal, setDeleteModal] = useState(false);
 
   const [subtasksModal, setSubtasksModal] = useState(false);
-
-  const [commentsOpen, setCommentsOpen] = useState(false);
-
-  const comments = task.comments && task.comments;
 
   const deleteTask = () => {
     dispatch({
@@ -81,250 +63,31 @@ const TaskModal: React.FC<{
           setEdit(false);
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            margin: '-32px -32px 10px -32px',
-            background: '#ffe0007a',
-            borderRadius: '20px 20px 0 0',
-            height: 50,
-          }}
-        >
-          <Typography
-            id="modal-modal-title"
-            variant="h5"
-            component="h2"
-            sx={{ marginRight: 'auto', padding: '10px' }}
-          >
-            Task number: {task.number}
-          </Typography>
-          {edit ? (
-            <>
-              <Button
-                sx={{ minWidth: 45 }}
-                type="submit"
-              >
-                <DoneIcon />
-              </Button>
-              <Button
-                sx={{ minWidth: 45 }}
-                onClick={() => {
-                  setEdit(false);
-                  setTaskUpdate(task);
-                }}
-              >
-                <ClearIcon />
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button
-                sx={{ minWidth: 45 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setEdit(true);
-                }}
-              >
-                <EditIcon />
-              </Button>
-              <Button
-                sx={{ minWidth: 45 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setDeleteModal(true);
-                }}
-              >
-                <DeleteIcon />
-              </Button>
-              <Button
-                sx={{ minWidth: 45 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setModalOpen(false);
-                }}
-              >
-                <CloseIcon />
-              </Button>
-            </>
-          )}
-        </Box>
-        <Box sx={{ maxHeight: '80vh', overflow: 'auto' }}>
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
-          >
-            Name:{' '}
-            {edit ? (
-              <TextField
-                fullWidth
-                multiline
-                variant="standard"
-                type="input"
-                value={taskUpdate.name}
-                onChange={(e) => {
-                  setTaskUpdate({ ...taskUpdate, name: e.target.value });
-                }}
-                sx={{ marginLeft: 1 }}
-              />
-            ) : (
-              task.name
-            )}
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
-          >
-            Description:{' '}
-            {edit ? (
-              <TextField
-                fullWidth
-                multiline
-                rows={5}
-                variant="standard"
-                type="input"
-                value={taskUpdate.description}
-                onChange={(e) => {
-                  setTaskUpdate({ ...taskUpdate, description: e.target.value });
-                }}
-                sx={{ marginLeft: 1 }}
-              />
-            ) : (
-              task.description
-            )}
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
-          >
-            {`Date of creation: ${new Date(task.dateCreate).toLocaleString()}`}
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{ marginBottom: 1 }}
-          >
-            {`Time at work: ${
-              task.expirationDate
-                ? msToTime(task.expirationDate - task.dateCreate)
-                : msToTime(Date.now() - task.dateCreate)
-            }`}
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
-          >
-            Priority:{' '}
-            {edit ? (
-              <FormControl required>
-                <Select
-                  value={taskUpdate.priority}
-                  onChange={(e) => {
-                    setTaskUpdate({ ...taskUpdate, priority: e.target.value as Priority });
-                  }}
-                  sx={{ marginLeft: 1 }}
-                  variant="standard"
-                >
-                  {Object.keys(Priority).map((priority) => {
-                    return (
-                      <MenuItem
-                        key={priority}
-                        value={priority}
-                      >
-                        {priority}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            ) : (
-              task.priority
-            )}
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{ marginBottom: 1, display: 'flex', overflow: 'hidden' }}
-          >
-            Status:{' '}
-            {edit ? (
-              <FormControl required>
-                <Select
-                  value={taskUpdate.status}
-                  onChange={(e) => {
-                    setTaskUpdate({ ...taskUpdate, status: e.target.value as Status });
-                  }}
-                  sx={{ marginLeft: 1 }}
-                  variant="standard"
-                >
-                  {Object.keys(Status).map((status) => {
-                    return (
-                      <MenuItem
-                        key={status}
-                        value={status}
-                      >
-                        {status}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            ) : (
-              task.status
-            )}
-          </Typography>
-          {!!task.expirationDate && (
-            <Typography
-              variant="h5"
-              component="h2"
-              sx={{ marginBottom: 1 }}
-            >
-              {`Expiration date: ${new Date(task.expirationDate).toLocaleString()}`}
-            </Typography>
-          )}
-          <Button
-            variant="contained"
-            sx={{ margin: 0.5 }}
-            onClick={() => setSubtasksModal(true)}
-          >
-            Subtasks{' '}
-            {task.subtasks
-              ? task.subtasks?.length
-                ? task.subtasks?.filter((item) => item.complete === false).length
-                : 0
-              : 0}{' '}
-            / {task.subtasks ? task.subtasks?.length : 0}
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ margin: 0.5 }}
-            onClick={() => setCommentsOpen(!commentsOpen)}
-          >
-            Comments {comments ? (comments.length ? comments.length : 0) : 0}
-          </Button>
-          {commentsOpen && (
-            <Box sx={{ overflow: 'auto', maxHeight: '50vh' }}>
-              <CommentContent
-                task={task}
-                taskComments={task.comments}
-              />
-            </Box>
-          )}
-          <DeleteTaskModal
-            open={deleteModal}
-            setOpen={setDeleteModal}
-            deleteTask={deleteTask}
-          />
-          <SubtaskModal
-            modalOpen={subtasksModal}
-            setModalOpen={setSubtasksModal}
-            task={task}
-          />
-        </Box>
+        <TaskManage
+          task={task}
+          edit={edit}
+          setEdit={setEdit}
+          setTaskUpdate={setTaskUpdate}
+          setDeleteModal={setDeleteModal}
+          setModalOpen={setModalOpen}
+        />
+        <TaskFields
+          task={task}
+          edit={edit}
+          taskUpdate={taskUpdate}
+          setTaskUpdate={setTaskUpdate}
+          setSubtasksModal={setSubtasksModal}
+        />
+        <DeleteTaskModal
+          open={deleteModal}
+          setOpen={setDeleteModal}
+          deleteTask={deleteTask}
+        />
+        <SubtaskModal
+          modalOpen={subtasksModal}
+          setModalOpen={setSubtasksModal}
+          task={task}
+        />
       </Box>
     </Modal>
   );

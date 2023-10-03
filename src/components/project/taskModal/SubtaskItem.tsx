@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Divider, Typography } from '@mui/material';
-import { Actions, Subtask, Task } from '../../types/types';
+import { Actions, Subtask, Task } from '../../../types/types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 

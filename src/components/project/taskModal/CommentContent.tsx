@@ -1,7 +1,7 @@
 import { Box, Button, List, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Actions, CommentItem, Task } from '../../types/types';
+import { Actions, CommentItem, Task } from '../../../types/types';
 import TaskComment from './TaskComment';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 
